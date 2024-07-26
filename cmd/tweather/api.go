@@ -1,4 +1,4 @@
-package api
+package tweather
 
 import (
 	"encoding/json"
@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type ApiConfig struct {
@@ -19,6 +20,91 @@ type CurrentWeather struct {
 	Weather   []Weather `json:"weather"`
 	Main      Main      `json:"main"`
 	Name      string    `json:"name"`
+}
+
+func (data *CurrentWeather) Get(args *Args) {
+	for _, opt := range strings.Split(*args.Opts, ",") {
+		switch strings.ToLower(opt) {
+		case "timestamp":
+			if args.Verbose {
+				fmt.Println("Timestamp:", data.Timestamp)
+			} else {
+				fmt.Println(data.Timestamp)
+			}
+		case "lat":
+			if args.Verbose {
+				fmt.Println("Latitude:", data.Coords.Lat)
+			} else {
+				fmt.Println(data.Coords.Lat)
+			}
+		case "lon":
+			if args.Verbose {
+				fmt.Println("Longitude:", data.Coords.Lon)
+			} else {
+				fmt.Println(data.Coords.Lon)
+			}
+		case "id":
+			if args.Verbose {
+				fmt.Println("ID:", data.Weather[0].Id)
+			} else {
+				fmt.Println(data.Weather[0].Id)
+			}
+		case "main":
+			if args.Verbose {
+				fmt.Println("Main:", data.Weather[0].Main)
+			} else {
+				fmt.Println(data.Weather[0].Main)
+			}
+		case "description":
+			if args.Verbose {
+				fmt.Println("Description:", data.Weather[0].Description)
+			} else {
+				fmt.Println(data.Weather[0].Description)
+			}
+		case "icon":
+			if args.Verbose {
+				fmt.Println("Icon:", data.Weather[0].Icon)
+			} else {
+				fmt.Println(data.Weather[0].Icon)
+			}
+		case "temp":
+			if args.Verbose {
+				fmt.Println("Temperature:", data.Main.Temp)
+			} else {
+				fmt.Println(data.Main.Temp)
+			}
+		case "feels_like":
+			if args.Verbose {
+				fmt.Println("Feels like:", data.Main.FeelsLike)
+			} else {
+				fmt.Println(data.Main.FeelsLike)
+			}
+		case "temp_min":
+			if args.Verbose {
+				fmt.Println("Min Temperature:", data.Main.TempMin)
+			} else {
+				fmt.Println(data.Main.TempMin)
+			}
+		case "temp_max":
+			if args.Verbose {
+				fmt.Println("Max Temperature:", data.Main.TempMax)
+			} else {
+				fmt.Println(data.Main.TempMax)
+			}
+		case "pressure":
+			if args.Verbose {
+				fmt.Println("Pressure:", data.Main.Pressure)
+			} else {
+				fmt.Println(data.Main.Pressure)
+			}
+		case "humidity":
+			if args.Verbose {
+				fmt.Println("Humidity:", data.Main.Humidity)
+			} else {
+				fmt.Println(data.Main.Humidity)
+			}
+		}
+	}
 }
 
 type Forecast struct {
