@@ -14,5 +14,7 @@ pkgs.buildGoModule {
   meta = with lib; {
     description = "A command line interface for retrieving data from the openweathermap.org API";
     homepage = "https://github.com/Kodlak15/tweather";
+    licenses = licenses.mit;
+    maintainers = with maintainers; [Kodlak15];
   };
 }
