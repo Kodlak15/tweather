@@ -3,10 +3,18 @@ package tweather
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 func Run() {
-	cfg, err := GetTweatherConfig("./tweather.yaml")
+	userCfgDir, err := os.UserConfigDir()
+	if err != nil {
+		fmt.Println("Failed to load the user config directory")
+	}
+
+	// TODO allow user to specify config file from another location
+	cfgPath := filepath.Join(userCfgDir, "tweather", "tweather.yaml")
+	cfg, err := GetTweatherConfig(cfgPath)
 	if err != nil {
 		// Don't panic as config can still be retrieved via args
 		fmt.Println(err)
@@ -38,10 +46,9 @@ func Run() {
 		os.Exit(1)
 	}
 
+	// TODO allow user to choose api (current vs forecast)
 	data := GetCurrentWeather(*apiConfig)
 	data.Get(&args)
-	// fmt.Println("Current weather data:", data)
-
 	// data := GetForecast(*apiConfig)
 	// fmt.Println("Forecast data:", data)
 }
