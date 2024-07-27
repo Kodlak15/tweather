@@ -14,6 +14,11 @@ type ApiConfig struct {
 	Coords Coords
 }
 
+type Geolocation []struct {
+	Lat float64
+	Lon float64
+}
+
 type CurrentWeather struct {
 	Timestamp int32     `json:"dt"`
 	Coords    Coords    `json:"coord"`
@@ -164,11 +169,6 @@ func GetForecast(apiConfig ApiConfig) Forecast {
 	return data
 }
 
-type Geolocation []struct {
-	Lat float64
-	Lon float64
-}
-
 func GetCoordsFromLocation(key string, city string, state string, country string) Geolocation {
 	url := fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s,%s,%s&limit=%d&appid=%s",
 		city, state, country, 1, key)
@@ -183,6 +183,7 @@ func GetCoordsFromLocation(key string, city string, state string, country string
 	return data
 }
 
+// TODO this is not finished
 func GetCoordsFromZip(key string, zip string, country string) Geolocation {
 	url := fmt.Sprintf("http://api.openweathermap.org/geo/1.0/zip?zip=%s,%s&appid=%s",
 		zip, country, key)
@@ -199,7 +200,6 @@ func GetCoordsFromZip(key string, zip string, country string) Geolocation {
 }
 
 func getApiResponseBody(url string) []byte {
-	// TODO: check and handle specific error codes
 	response, err := http.Get(url)
 	if err != nil {
 		fmt.Println("Request failed:", err)

@@ -35,7 +35,7 @@
           };
         };
         packages = {
-          default = {};
+          default = pkgs.callPackage ./default.nix {};
         };
       }
     );
