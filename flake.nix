@@ -1,5 +1,5 @@
 {
-  description = "";
+  description = "A command line interface for retrieving data from the openweathermap.org API";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
