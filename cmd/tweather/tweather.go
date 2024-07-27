@@ -1,6 +1,7 @@
 package tweather
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -25,6 +26,9 @@ func Run() {
 	}
 
 	args := GetArgs()
+	if *args.Opts == "" {
+		flag.Usage()
+	}
 
 	// Override any config fields with associated argument if that argument is not nil
 	if *args.Key != "" {
